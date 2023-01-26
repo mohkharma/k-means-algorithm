@@ -31,12 +31,13 @@ class AlgorithmsTesting:
             kmeansAlgorithm.kmeansAlgorithmPureImpl(originalDS=originalDS,
                                                     reclassifcationIterationLimit=200,
                                                     stopLimit=0.2,
-                                                    numberOfClusters = numberOfClusters,
+                                                    numberOfClusters=numberOfClusters,
                                                     needDimReduction=needDimReduction)
 
         # Draw the data points along with the clusters centers                                          )
-        utility.plot(clusterCenters, clusterMemberships, workingCopyDS,algorithmConvergeHistory)
-        #,originalDS[originalDS.columns[len(originalDS.columns)-1]].unique()
+        utility.plot(clusterCenters, clusterMemberships, workingCopyDS, algorithmConvergeHistory)
+        # ,originalDS[originalDS.columns[len(originalDS.columns)-1]].unique()
+
 
 algorithmsTesting = AlgorithmsTesting()
 

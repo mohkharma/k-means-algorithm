@@ -32,15 +32,15 @@ class Utility:
 
     '''Draw the data points along with the clusters centers'''
 
-    def plot(self, clusterCenters, clusterMemberships, workingCopyDS,algorithmConvergeHistory):
+    def plot(self, clusterCenters, clusterMemberships, workingCopyDS, algorithmConvergeHistory):
         x_index = 0
         y_index = 1
         # this formatter will label the colorbar with the correct target names
         # formatter = plt.FuncFormatter(lambda i, *args: labels[int(i)])
         plt.figure(figsize=(5, 4))
-        plt.scatter(workingCopyDS[:, x_index], workingCopyDS[:, y_index],alpha=0.4,
+        plt.scatter(workingCopyDS[:, x_index], workingCopyDS[:, y_index], alpha=0.4,
                     c=clusterMemberships)
-        plt.scatter(clusterCenters[:, 0], clusterCenters[:, 1],alpha=0.4, s=100, color='y')
+        plt.scatter(clusterCenters[:, 0], clusterCenters[:, 1], alpha=0.4, s=100, color='y')
         # c=originalDS.to_numpy(copy=True)[:, y_index+1])
         # plt.colorbar(ticks=[0, 1, 2], format=formatter)
         plt.xlabel("X")
@@ -48,7 +48,7 @@ class Utility:
         plt.tight_layout()
         plt.show()
 
-        sns.lineplot(x=range(0,len(algorithmConvergeHistory)), y=algorithmConvergeHistory, marker='x')
+        sns.lineplot(x=range(0, len(algorithmConvergeHistory)), y=algorithmConvergeHistory, marker='x')
         plt.xlabel('X')
         plt.ylabel('Y')
         plt.show()

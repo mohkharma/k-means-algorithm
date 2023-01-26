@@ -17,6 +17,8 @@ The rest of this report is organized as follows, section 2 presents a descrip- t
 In this report, we report the results of using the following datasets:
 
 - Iris dataset:
+```
+
 - classes : 3
 - data points : 150
 
@@ -48,7 +50,10 @@ Dataset sample :
 0  4.7 3.2 1.3 0.2
 0  4.6 3.1 1.5 0.2
 0  5.0 3.6 1.4 0.2
+```
+
 - Three separable gaussians:
+```
 
 4
 
@@ -83,7 +88,7 @@ Dataset description :
 
 0.000000 0.000000 1.000000 2.000000
 
-The K -Means Project 3
+
 
 max 3.437618 5.474253 2.000000 Dataset sample :
 
@@ -96,8 +101,11 @@ max 3.437618 5.474253 2.000000 Dataset sample :
 3 − 1.578462 3.034458 2.0
 
 4 − 1.658629 2.267460 2.0
+```
 
 - Slightly overlapping three gaussians:
+```
+
 - classes : 3
 - data points : 300
 
@@ -136,8 +144,11 @@ Dataset description :
 0.000000 0.000000 1.000000 2.000000 2.000000
 
 The K -Means Project 
+```
 
 - Moons
+```
+
 - classes : 2
 - data points : 1000
 
@@ -179,8 +190,11 @@ The K -Means Project
 Dataset sample :
 
 0 1 2 0 − 1.036507 0.392617 0.0 1 1.014714 0.177547 0.0 2 − 0.661602 0.705367 0.0 3 − 0.286087 0.967387 0.0 4 − 0.790062 0.615586 0.0
+```
 
 - Circles
+```
+
 - classes : 2
 - data points : 1000
 
@@ -224,6 +238,9 @@ Dataset sample :
 0  0.420065 0.168314 1.0
 0  0.223487 − 0.337189 1.0 3 − 0.254356 0.497842 1.0
 0  0.055423 − 1.014569 0.0
+
+```
+
 3  Design and Implementation
 1. Algorithm illustration
 
@@ -237,53 +254,48 @@ The following illustrates the basic flow of the K-means algorithm:
 
 In the following, the algorithm pseudo-code:
 
-- Initialize the cluster centers randomly
+```
+# Initialize the cluster centers randomly
+clusterCenters <- select c instances randomly from the dataset
+maxIteration <- some number like 100 iteration
+errorLimit <- some small value to control the algorithm convergence
+currentLoopIteration <- 0
 
-clusterCenters = select c instances randomly from the dataset maxIteration = some number like 100 iteration
+While maxIteration < currentLoopIteration || error rate > errorLimit:
+    # Assign each data instance to the closest cluster center.
+    
+    for each data point:
+       
+        Calculate the similarity measure between the data point and each 
+        cluster center using for example Euclidean distance function.
+        
+        Assign the data instances to the nearest cluster center's cluster.
+        
+    # Update the cluster center
+    
+    for all points per each cluster:
+        Calculate the mean of all data points assigned to the cluster.
+        
+        Update the cluster center of the cluster to the calculated mean.
+        
+    # Calculate the error rate/algorithm convergence based on the change 
+    in distance between each cluster point and its current center 
+    for 
+    all points per each cluster:
+        Calculate the Euclidean distance of all data points 
+        assigned to the cluster.    
+    Get the sum of all Euclidean distances for all points (currentErrorRate)
+    and divide it by the number of instances in the dataset.
+    
+    if currentErrorRate<=errorLimit:
+        break
+    else
+        currentLoopIteration++
 
-errorLimit = some small value to control the algorithm convergence currentLoopIteration = 0
+Return each cluster center and its assigned data points.
 
-While maxIteration < currentLoopIteration | | error rate > errorLimit :
+```
 
-- Assign each data instance to the closest cluster center .
-
-for each data point :
-
-Calculate the similarity measure between the data point and each cluster center using for example Euclidean distance function .
-
-Assign the data instances to the nearest cluster center ’ s cluster .
-
-- Update the cluster center
-
-for all points per each cluster :
-
-Calculate the mean of all data points assigned to the cluster .
-
-Update the cluster center of the cluster to the calculated mean.
-
-- Calculate the error rate/algorithm convergence based on the change
-
-in distance between each cluster point and its current center
-
-for
-
-all points per each cluster :
-
-Calculate the Euclidean distance of all data points
-
-assigned to the cluster .
-
-Get the sum of all Euclidean distances for all points ( currentErrorRate ) and divide it by the number of instances in the dataset .
-
-if currentErrorRate <=errorLimit :
-
-break
-
-else
-
-currentLoopIteration++
-
-Return each cluster center and its assigned data points .
 
 2. Mathematical equations
 
@@ -291,11 +303,15 @@ To calculate the Euclidian distance between the two instances, assume points, P1
 
 D(P 1,P 2) = (P 2−P 1)2 (1)
 
-To calculate the new cluster centers,
+To calculate the new center in each iteration after the assignment step, cal-
+culate the mean of each feature using equation 2 where C is the cluster center
+of a particular cluster J and X is the assigned data points into cluster J.
+Cj  (2)
+
 
 To calculate the cost function on each iteration, assume we have cluster centers K and datapoints X. So we need to calculate the distance using equation 1 between each data point in X between i and n with the related cluster center j. See equation 2
 
-1/n ∗ D(xi,cj ) (2)
+1/n ∗ D(xi,cj ) (3)
 
 1<j<k Xi∈Cj
 

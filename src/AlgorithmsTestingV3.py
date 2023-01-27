@@ -20,8 +20,11 @@ class AlgorithmsTesting:
         # originalDS = utility.readDataSet("../dataset/3gaussians/3gaussians-std0.9.csv")
         # originalDS = utility.readDataSet("../dataset/3gaussians/3gaussians-std0.6.csv")
         originalDS = utility.readDataSet("../dataset/Iris/iris.data")
+
+        # // this to be used for 3gaussians and Iris
         needDimReduction = True
         numberOfClusters = 3
+
         # Describe the data
         utility.describeDS(originalDS)
 

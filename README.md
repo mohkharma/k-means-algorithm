@@ -1,4 +1,4 @@
-﻿The K -Means Project
+﻿The K -Means algorithm implementation from scratch in Python
 
 Mohammed Kharma[0000−0001−8280−3285]
 

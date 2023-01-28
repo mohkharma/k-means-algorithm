@@ -31,6 +31,7 @@ class KmeansAlgorithm:
                                 needDimReduction=False):
 
         # Number of rows in the DS
+        global costFunction
         numberOfPoints = len(originalDS.index)
 
         # Number of columns in the DS including the label
@@ -61,7 +62,7 @@ class KmeansAlgorithm:
         if needDimReduction:
             pca = PCA(n_components=2)
             workingCopyDS = pca.fit_transform(workingCopyDS)
-            print("Dataset after dimensionality reduction: ", workingCopyDS)
+            ## print("Dataset after dimensionality reduction: ", workingCopyDS)
 
         # Initialize the scaler in order to use Min-Max normalization
         scaler = MinMaxScaler()
@@ -69,13 +70,13 @@ class KmeansAlgorithm:
         workingCopyDS = scaler.fit_transform(workingCopyDS)
 
         # Fix the randomization behaviour for better testing and results comparison
-        np.random.seed(6)
+        # np.random.seed(6)
         # Before we start the clustering, the first step is to initialize the cluster centers
         # based on number of the selected clusters by selecting random points from the DS.
         idx = np.random.randint(numberOfPoints, size=numberOfClusters)
         clusterCenters = workingCopyDS[idx, :]
 
-        print("Initial cluster centers: ", clusterCenters)
+        ## print("Initial cluster centers: ", clusterCenters)
 
         # Initialize two dim zeros array with length of the clusters X points in the DS
         clusterMemberships = np.empty(numberOfPoints)
@@ -94,7 +95,7 @@ class KmeansAlgorithm:
             if isClusterCenterGetConverged:
                 break
 
-            print("Current iteration #: ", currentIteration)
+            ## print("Current iteration #: ", currentIteration)
 
             # For each point in the DS, find the Euclidean distance and assign it to the
             # closest cluster center
@@ -125,8 +126,8 @@ class KmeansAlgorithm:
 
             # points assignments on each cluster result
 
-            print("Points assignments on each cluster result for iteration # ", currentIteration,
-                  ": ", clusterMemberships)
+                    ## print("Points assignments on each cluster result for iteration # ", currentIteration,
+            ##      ": ", clusterMemberships)
             # print("Points assignments on each cluster result for iteration # ",currentIteration,
             #       ": ", clusterMemberships1)
 
@@ -180,13 +181,17 @@ class KmeansAlgorithm:
 
                 # Consider the mean of the current cluster assigned points as
                 # the new cluster center
-                clusterCenters[clusterCenterIndex] = sumOfPoints / numberOfAssignedClusterPoints
+                # print ("sumOfPoints-----", sumOfPoints, "numberOfAssignedClusterPoints--", numberOfAssignedClusterPoints)
+                if numberOfAssignedClusterPoints != 0:
+                    clusterCenters[clusterCenterIndex] = sumOfPoints / numberOfAssignedClusterPoints
+                else:
+                    clusterCenters[clusterCenterIndex] = 0
                 #
                 # print("New clacluated clusters in iteration # ",currentIteration,
                 #       ": ", sumOfPoints1/numberOfAssignedClusterPoints1)
 
-            print("New clacluated clusters in iteration # ", currentIteration,
-                  ": ", clusterCenters)
+                ##print("New clacluated clusters in iteration # ", currentIteration,
+            ##     ": ", clusterCenters)
 
             # sumOfCostFunctionForEachCluseterCenters = clusterCenters.copy()
             # Calculate the cost function
@@ -216,13 +221,14 @@ class KmeansAlgorithm:
 
             costFunction = sumOfCostFunction / numberOfAssignedClusterPoints
 
-            algorithmConvergeHistory.append(costFunction)
 
             if costFunction <= stopLimit:
                 isClusterCenterGetConverged = True
 
-            print("algorithmConvergeHistory: ", algorithmConvergeHistory)
-        return workingCopyDS, clusterMemberships, clusterCenters, algorithmConvergeHistory
+            ## print("algorithmConvergeHistory: ", algorithmConvergeHistory)
+            algorithmConvergeHistory.append(costFunction)
+        return workingCopyDS, clusterMemberships, clusterCenters, \
+               algorithmConvergeHistory,costFunction
 
 
 def euclideanDistance(currentClusterCenter, currentPoint):

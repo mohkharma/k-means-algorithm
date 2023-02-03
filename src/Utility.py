@@ -48,7 +48,7 @@ class Utility:
         plt.tight_layout()
         plt.show()
 
-        sns.lineplot(x=range(0+1, len(algorithmConvergeHistory)+1), y=algorithmConvergeHistory, marker='x')
+        sns.lineplot(x=range(0 + 1, len(algorithmConvergeHistory) + 1), y=algorithmConvergeHistory, marker='x')
         plt.xlabel('X')
         plt.ylabel('Y')
         plt.show()

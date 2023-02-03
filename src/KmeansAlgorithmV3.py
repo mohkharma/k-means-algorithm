@@ -126,7 +126,7 @@ class KmeansAlgorithm:
 
             # points assignments on each cluster result
 
-                    ## print("Points assignments on each cluster result for iteration # ", currentIteration,
+            ## print("Points assignments on each cluster result for iteration # ", currentIteration,
             ##      ": ", clusterMemberships)
             # print("Points assignments on each cluster result for iteration # ",currentIteration,
             #       ": ", clusterMemberships1)
@@ -221,14 +221,13 @@ class KmeansAlgorithm:
 
             costFunction = sumOfCostFunction / numberOfAssignedClusterPoints
 
-
             if costFunction <= stopLimit:
                 isClusterCenterGetConverged = True
 
             ## print("algorithmConvergeHistory: ", algorithmConvergeHistory)
             algorithmConvergeHistory.append(costFunction)
         return workingCopyDS, clusterMemberships, clusterCenters, \
-               algorithmConvergeHistory,costFunction
+               algorithmConvergeHistory, costFunction
 
 
 def euclideanDistance(currentClusterCenter, currentPoint):

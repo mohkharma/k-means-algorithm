@@ -4,10 +4,12 @@
     Algorithm testing .
 '''
 
+import time
+
 from src.KmeansAlgorithmV3 import KmeansAlgorithm
 from src.Utility import Utility
 
-import time
+
 class AlgorithmsTesting:
     def testKmeansPureImpl(self):
         '''
@@ -24,7 +26,7 @@ class AlgorithmsTesting:
         # needDimReduction = True
 
         bestCostFunction = 999999999
-        bestNumberOfClusters =99999999
+        bestNumberOfClusters = 99999999
         bestWorkingCopyDS = None
         bestClusterMemberships = None
         bestClusterCenters = None
@@ -33,15 +35,14 @@ class AlgorithmsTesting:
         # Describe the data
         utility.describeDS(originalDS)
 
-
         kmeansAlgorithm = KmeansAlgorithm()
         # Call the K-mean function
         maxNumberOfClusters = 15
         prevoiusBestRunCostFunction = 999999999
         t = time.localtime()
-        for numberOfClusters in range(2,maxNumberOfClusters):
+        for numberOfClusters in range(2, maxNumberOfClusters):
             workingCopyDS, clusterMemberships, clusterCenters, algorithmConvergeHistory, \
-            costFunction= \
+            costFunction = \
                 kmeansAlgorithm.kmeansAlgorithmPureImpl(originalDS=originalDS,
                                                         reclassifcationIterationLimit=50,
                                                         stopLimit=0.01,
@@ -58,11 +59,11 @@ class AlgorithmsTesting:
                 bestCostFunction = costFunction
 
             #     If no significant improvement, then break
-            if prevoiusBestRunCostFunction - costFunction <=0.02 :
+            if prevoiusBestRunCostFunction - costFunction <= 0.02:
                 break
             prevoiusBestRunCostFunction = costFunction
 
-        print("Time in execution: " , (time.localtime().tm_sec - t.tm_sec) )
+        print("Time in execution: ", (time.localtime().tm_sec - t.tm_sec))
         # Draw the data points along with the clusters centers                                          )
         utility.plot(bestClusterCenters, bestClusterMemberships, bestWorkingCopyDS,
                      clusterBasedAlgorithmConvergeHistory)

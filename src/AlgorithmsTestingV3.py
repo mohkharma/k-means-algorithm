@@ -69,7 +69,6 @@ class AlgorithmsTesting:
                      clusterBasedAlgorithmConvergeHistory)
         # ,originalDS[originalDS.columns[len(originalDS.columns)-1]].unique()
 
-
 algorithmsTesting = AlgorithmsTesting()
 
 algorithmsTesting.testKmeansPureImpl()

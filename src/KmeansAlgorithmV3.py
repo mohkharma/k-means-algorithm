@@ -31,7 +31,9 @@ class KmeansAlgorithm:
                                 needDimReduction=False):
 
         # Number of rows in the DS
+        global prevcostFunction
         global costFunction
+        prevcostFunction = 0
         numberOfPoints = len(originalDS.index)
 
         # Number of columns in the DS including the label
@@ -220,8 +222,9 @@ class KmeansAlgorithm:
             # sumOfCostFunctionForEachCluseterCenters[clusterCenterIndex] = sumOfCostFunction/numberOfAssignedClusterPoints
 
             costFunction = sumOfCostFunction / numberOfAssignedClusterPoints
-
-            if costFunction <= stopLimit:
+            currentCostFunctionDiff = abs(costFunction - prevcostFunction)
+            prevcostFunction = costFunction
+            if currentCostFunctionDiff <= stopLimit:
                 isClusterCenterGetConverged = True
 
             ## print("algorithmConvergeHistory: ", algorithmConvergeHistory)

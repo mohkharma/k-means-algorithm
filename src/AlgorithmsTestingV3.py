@@ -37,15 +37,15 @@ class AlgorithmsTesting:
 
         kmeansAlgorithm = KmeansAlgorithm()
         # Call the K-mean function
-        maxNumberOfClusters = 15
+        maxNumberOfClusters = 5
         prevoiusBestRunCostFunction = 999999999
         t = time.localtime()
-        for numberOfClusters in range(2, maxNumberOfClusters):
+        for numberOfClusters in range(3, maxNumberOfClusters):
             workingCopyDS, clusterMemberships, clusterCenters, algorithmConvergeHistory, \
             costFunction = \
                 kmeansAlgorithm.kmeansAlgorithmPureImpl(originalDS=originalDS,
-                                                        reclassifcationIterationLimit=50,
-                                                        stopLimit=0.01,
+                                                        reclassifcationIterationLimit=200,
+                                                        stopLimit=0.00001,
                                                         numberOfClusters=numberOfClusters,
                                                         needDimReduction=needDimReduction)
 
@@ -59,7 +59,7 @@ class AlgorithmsTesting:
                 bestCostFunction = costFunction
 
             #     If no significant improvement, then break
-            if prevoiusBestRunCostFunction - costFunction <= 0.02:
+            if prevoiusBestRunCostFunction - costFunction <= 0.0002:
                 break
             prevoiusBestRunCostFunction = costFunction
 

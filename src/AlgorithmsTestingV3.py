@@ -8,7 +8,8 @@ import time
 
 from src.KmeansAlgorithmV3 import KmeansAlgorithm
 from src.Utility import Utility
-
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 class AlgorithmsTesting:
     def testKmeansPureImpl(self):
@@ -37,36 +38,40 @@ class AlgorithmsTesting:
 
         kmeansAlgorithm = KmeansAlgorithm()
         # Call the K-mean function
-        maxNumberOfClusters = 5
+        maxNumberOfClusters = 4
         prevoiusBestRunCostFunction = 999999999
         t = time.localtime()
-        for numberOfClusters in range(3, maxNumberOfClusters):
+        for numberOfClusters in range(2, maxNumberOfClusters):
             workingCopyDS, clusterMemberships, clusterCenters, algorithmConvergeHistory, \
             costFunction = \
                 kmeansAlgorithm.kmeansAlgorithmPureImpl(originalDS=originalDS,
-                                                        reclassifcationIterationLimit=200,
-                                                        stopLimit=0.00001,
+                                                        reclassifcationIterationLimit=300,
+                                                        stopLimit=0.000000000001,
                                                         numberOfClusters=numberOfClusters,
                                                         needDimReduction=needDimReduction)
 
-            clusterBasedAlgorithmConvergeHistory.append(costFunction)
-            if bestCostFunction > costFunction:
-                bestNumberOfClusters = numberOfClusters
-                bestAlgorithmConvergeHistory = algorithmConvergeHistory
-                bestWorkingCopyDS = workingCopyDS
-                bestClusterMemberships = clusterMemberships
-                bestClusterCenters = clusterCenters
-                bestCostFunction = costFunction
+            # clusterBasedAlgorithmConvergeHistory.append(costFunction)
+            # if bestCostFunction > costFunction:
+            #     bestNumberOfClusters = numberOfClusters
+            #     bestAlgorithmConvergeHistory = algorithmConvergeHistory
+            #     bestWorkingCopyDS = workingCopyDS
+            #     bestClusterMemberships = clusterMemberships
+            #     bestClusterCenters = clusterCenters
+            #     bestCostFunction = costFunction
 
             #     If no significant improvement, then break
-            if prevoiusBestRunCostFunction - costFunction <= 0.0002:
-                break
-            prevoiusBestRunCostFunction = costFunction
+            # if prevoiusBestRunCostFunction - costFunction <= 0.0002:
+            #     break
+            # prevoiusBestRunCostFunction = costFunction
+            # sns.lineplot(x=range(0 + 1, len(algorithmConvergeHistory) + 1), y=algorithmConvergeHistory, marker='x')
+
+            utility.plot(clusterCenters, clusterMemberships, workingCopyDS,
+                         algorithmConvergeHistory)
 
         print("Time in execution: ", (time.localtime().tm_sec - t.tm_sec))
         # Draw the data points along with the clusters centers                                          )
-        utility.plot(bestClusterCenters, bestClusterMemberships, bestWorkingCopyDS,
-                     clusterBasedAlgorithmConvergeHistory)
+        # utility.plot(bestClusterCenters, bestClusterMemberships, bestWorkingCopyDS,
+        #              clusterBasedAlgorithmConvergeHistory)
         # ,originalDS[originalDS.columns[len(originalDS.columns)-1]].unique()
 
 algorithmsTesting = AlgorithmsTesting()

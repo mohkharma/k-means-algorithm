@@ -222,13 +222,14 @@ class KmeansAlgorithm:
             # sumOfCostFunctionForEachCluseterCenters[clusterCenterIndex] = sumOfCostFunction/numberOfAssignedClusterPoints
 
             costFunction = sumOfCostFunction / numberOfAssignedClusterPoints
+            algorithmConvergeHistory.append(costFunction)
             currentCostFunctionDiff = abs(costFunction - prevcostFunction)
             prevcostFunction = costFunction
             if currentCostFunctionDiff <= stopLimit:
                 isClusterCenterGetConverged = True
 
             ## print("algorithmConvergeHistory: ", algorithmConvergeHistory)
-            algorithmConvergeHistory.append(costFunction)
+
         return workingCopyDS, clusterMemberships, clusterCenters, \
                algorithmConvergeHistory, costFunction
 
